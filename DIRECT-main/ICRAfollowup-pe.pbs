@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#PBS -W group_list=teamVIP -A teamVIP
+#PBS -N ICRA_followup
+#PBS -l nodes=1:ppn=20
+#PBS -l mem=100gb
+#PBS -l walltime=24:00:00
+#PBS -e $PBS_JOBNAME.$PBS_JOBID.err
+#PBS -o $PBS_JOBNAME.$PBS_JOBID.log
+
+module load anaconda2/2.2.0
+module load gcc/9.3.0 
+module load gem-library/20130406-045632
+source activate base
+
+FILENAME=`sed -n "${PBS_ARRAYID} p" followupsamples`
+
+gunzip -c /home/Data/Repository/Microbiome/WP/Follow_up/02.qced/${FILENAME}_kneaddata_paired_1.fastq.gz > /home/scratch/margar/SV-followup/fastqs/${FILENAME}_kneaddata_paired_1.fastq
+
+gunzip -c /home/Data/Repository/Microbiome/WP/Follow_up/02.qced/${FILENAME}_kneaddata_paired_2.fastq.gz > /home/scratch/margar/SV-followup/fastqs/${FILENAME}_kneaddata_paired_2.fastq
+
+cd /home/scratch/margar/
+
+python SGVFinder-master/src/ICRA_cmd.py SV-followup/ SV-followup/fastqs/${FILENAME}_kneaddata_paired --pe
+
+rm SV-followup/fastqs/${FILENAME}_kneaddata_paired_1.fastq
+rm SV-followup/fastqs/${FILENAME}_kneaddata_paired_2.fastq

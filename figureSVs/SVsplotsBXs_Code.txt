@@ -1,0 +1,33 @@
+p2 <- eub.rect %>% 
+  filter(!is.na(E.rectale.1706.1708)) %>% 
+  mutate('E.rectale.1706.1708' = factor(E.rectale.1706.1708,levels = c(1,0))) %>% 
+  mutate('E.rectale.1706.1708' = plyr::revalue(E.rectale.1706.1708, c('0'='With deletion', '1'='Without deletions'))) %>% 
+  ggplot(aes(E.rectale.1706.1708, M86, color=E.rectale.1706.1708)) +
+    geom_quasirandom() +
+    geom_boxplot(alpha=.3) +
+    geom_hline(yintercept = 0, linetype='dashed', color='gray80') +
+    stat_compare_means() + theme(axis.line = element_line(size = 0.5, 
+    linetype = "solid"), axis.title = element_text(size = 20), 
+    panel.background = element_rect(fill = NA), legend.position = "top", legend.direction = "horizontal", 
+    plot.caption = element_text(face = "italic"), axis.text = element_text(size=15)) +
+  labs(x = "Deletions", y = "Norm. abundance of cluster M86", colour = "Deletions",
+       caption = "M86 cluster consists of indolepropionate, erythritol, 2,3-dihydroxyisovalerate, 
+arabonate/xylonate, arabitol/xylitol, pentose acid*, 
+X-12283, X-12306, X-17351, X-21821, X-22162")
+
+eub.rect2 <- data.frame('E.rectale.1701' = deletions[,grep('rectale:1701', names(deletions))], 
+                       'mean.gluc' = mtdt$Mean.Glucose)
+p1 <- eub.rect2 %>% 
+  filter(!is.na(E.rectale.1701)) %>% 
+  mutate('E.rectale.1701' = factor(E.rectale.1701,levels = c(1,0))) %>% 
+  mutate('E.rectale.1701' = plyr::revalue(E.rectale.1701, c('0'='With deletion', '1'='Without deletions'))) %>% 
+  ggplot(aes(E.rectale.1701, mean.gluc, color=E.rectale.1701)) +
+  geom_quasirandom() +
+  geom_boxplot(alpha=.3) +
+  stat_compare_means() + 
+  theme(axis.line = element_line(size = 0.5, linetype = "solid"), axis.title = element_text(size = 20), 
+        panel.background = element_rect(fill = NA), legend.position = "top", legend.direction = "horizontal", 
+        plot.caption = element_text(face = "italic"), axis.text = element_text(size=15)) +
+  labs(x = "Deletions", y = "Mean glucose (mmol/L)", colour = "Deletions")
+
+ggarrange(p1, p2, labels = c('B', 'C'), ncol=2)
