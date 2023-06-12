@@ -6,6 +6,6 @@ Manuscript status: under review
 
 Manuscript detail:
 
-Vogt et al. A depleted gut microbiome predicts incident type 2 diabetes
+Fan et al. A depleted gut microbiome predicts incident type 2 diabetes
 
 Year 2023-2024
