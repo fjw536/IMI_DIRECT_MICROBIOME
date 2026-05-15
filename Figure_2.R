@@ -1,6 +1,5 @@
 # Fiugre 2 Gut microbial gene family richness as a marker of adverse metabolic health in prediabetic individuals
 
-```{r}
 library(dplyr)
 meta_0m_775 <- readRDS('Inputs/Meta_data_0m_775.rdata')
 meta_0m_775$CenterID <- as.factor(meta_0m_775$CenterID)
