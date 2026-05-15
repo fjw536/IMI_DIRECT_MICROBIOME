@@ -1,4 +1,4 @@
-# IMI_DIRECT_MICROBIOME
+## IMI_DIRECT_MICROBIOME
 
 Author: Yong Fan (please contact oluf@sund.ku.dk or yong.fan@sund.ku.dk if any questions)
 
